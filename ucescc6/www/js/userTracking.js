@@ -9,6 +9,5 @@ function trackLocation(){
 
 function showPosition(position){
 	L.marker([position.coords.latitude,position.coords.longitude]).addTo(mymap).bindPopup("<b>You were here</b>");
-	mymap.setView([position.coords.latitude,position.longitude],13);
 
 }

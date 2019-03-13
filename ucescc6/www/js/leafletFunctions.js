@@ -36,7 +36,6 @@ var myPolygon = L.polygon([
 // create the code to get the Earthquakes data using an XMLHttpRequest
 function getEarthquakes(){
 	client = new XMLHttpRequest();
-
 	client.open('GET','https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson');
 	client.onreadystatechange = earthquakeResponse;
 	// note don't use earthquakeResponse() with brackets as that doesn't work
@@ -73,7 +72,8 @@ function loadEarthquakelayer(earthquakedata){
 				// magnitude is 1.75 or less
 				return L.marker(latlng,{icon:testMarkerPink}).bindPopup("<b>"+feature.properties.place+"</b>");;
 				}
-		}
+		},
 	}).addTo(mymap);
 	mymap.fitBounds(earthquakelayer.getBounds());
 }
+
