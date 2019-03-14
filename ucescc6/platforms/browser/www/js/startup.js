@@ -1,7 +1,7 @@
 function trackAndCircle(){
 	trackLocation()
 	addPointLinePoly()
-	getEarthquake()
+	getEarthquakes()
 }
 
 function startup(){
