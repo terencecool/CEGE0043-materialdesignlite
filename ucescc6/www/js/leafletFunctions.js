@@ -1,5 +1,6 @@
 var client;
 var earthquakelayer;
+var earthquakes;
 
 var testMarkerRed = L.AwesomeMarkers.icon({
 	icon:'play',
@@ -59,6 +60,7 @@ if (client.readyState == 4){
 function loadEarthquakelayer(earthquakedata){
 	// convert the text received from the server to JSON
 	var earthquakejson = JSON.parse(earthquakedata);
+	earthquakes=earthquakejson;
 	// load the geoJSON layer
 	earthquakelayer = L.geoJson(earthquakejson,{
 		// use point to layer to create the points
