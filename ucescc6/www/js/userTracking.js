@@ -21,7 +21,7 @@ function showPosition(position){
 
 
 function getDistance(){
-	//alert('getting distance');
+	// alert("getting distance");
 	// getDistanceFromMultiplePoints is the function called once the distance has been found
 	navigator.geolocation.getCurrentPosition(getDistanceFromMultiplePoints);
 }
@@ -58,13 +58,14 @@ function calculateDistance(lat1,lon1,lat2,lon2,unit){
 function getDistanceFromMultiplePoints(position){
 	var minDistance = 100000000000;
 	var closestQuake = "";
-	for(var i = 0; i<earthqukaes.features.length; i++){
-		var obj = earthqukaes.features[i];
-		var distance = calculateDistance(position.coords.latitude,position.coords.longitude,obj.geometry.coordinates[0],geometry.coordinates[1],'K');
+	for(var i = 0; i < earthquakes.features.length; i++){
+		var obj = earthquakes.features[i];
+		var distance = calculateDistance(position.coords.latitude,position.coords.longitude,obj.geometry.coordinates[0],obj.geometry.coordinates[1],'K');
 			if (distance < minDistance){
 				minDistance = distance;
 				closestQuake = obj.properties.place;
 			}
 	}
-	alert("Earthqukae:" + closestQuake + "is distance" + minDistance + "away");
+
+	alert("Earthqukae: " + closestQuake + " is distance " + minDistance + " km away");
 }
