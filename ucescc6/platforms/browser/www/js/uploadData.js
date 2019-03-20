@@ -3,7 +3,8 @@ function startDataUpload() {
   var name = document.getElementById("name").value;
   var surname = document.getElementById("surname").value;
   var module = document.getElementById("module").value;
-
+  var postString = "name=" + name + "&surname=" + surname + "&module=" + module; 
+ 
   // now get the checkbox values - separate them with a | so that they can be
   // split later on if necessary
   var checkString = "";
@@ -42,7 +43,7 @@ var client; // the global variable that holds the request
 
 function processData(postString) {
   client = new XMLHttpRequest();
-  client.open('POST', 'http://developer.cege.ucl.ac.uk:30250/reflectData', true);
+  client.open('POST', 'http://developer.cege.ucl.ac.uk:30268/reflectData', true);
   client.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   client.onreadystatechange = dataUploaded;
   client.send(postString);
