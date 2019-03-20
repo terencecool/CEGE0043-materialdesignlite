@@ -2,6 +2,11 @@ function trackAndCircle(){
 	trackLocation();
 	addPointLinePoly();
 	getEarthquakes();
+	loadW3HTML();
+}
+
+function loadW3HTML() {
+w3.includeHTML();
 }
 
 function startup(){
@@ -10,3 +15,4 @@ function startup(){
 		trackAndCircle();
 	},false);
 }
+
