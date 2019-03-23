@@ -44,6 +44,23 @@ function getEarthquakes(){
 }
 
 
+function getFormData(){
+	client = new XMLHttpRequest();
+	var url = "http://developer.cege.ucl.ac.uk:30268/getQuizPoints/30267" ;
+	if (httpPortNumber != undefined){
+
+		url = "http://developer.cege.ucl.ac.uk:"+ httpPortNumber +"/getGeoJSON/formdata/geom/"+ httpPortNumber;
+		alert(url);
+	}
+
+	client.open('GET',url);
+	client.onreadystatechange = earthquakeResponse;
+	// note don't use earthquakeResponse() with brackets as that doesn't work
+	client.send();
+}
+
+
+
 
 // create the code to wait for the response from the data server, and process the response once it is received
 function earthquakeResponse(){
@@ -62,20 +79,34 @@ function loadEarthquakelayer(earthquakedata){
 	var earthquakejson = JSON.parse(earthquakedata);
 	earthquakes=earthquakejson;
 	// load the geoJSON layer
+	// L.clearLayers();
 	earthquakelayer = L.geoJson(earthquakejson,{
 		// use point to layer to create the points
 		pointToLayer:function(feature,latlng)
 		{
 			// look at the GeoJSON file - specifically at the properties - to see the earthquake magnitude and use a different marker depending on this value
 			// also include a pop-up that shows the place value of the earthquakes
-			if (feature.properties.mag>1.75){
-				return L.marker(latlng,{icon:testMarkerRed}).bindPopup("<b>"+feature.properties.place+"</b>");}
+			if (feature.properties.mag<1.75){
+				return L.marker(latlng,{icon:testMarkerRed}).bindPopup("<b>"+feature.properties.question_text+" </b> <br/> <input type='radio' name='answer' value='1'> "+feature.properties.answer_1+"</b> <br/> <input type='radio' name='answer' value='2'>" +feature.properties.answer_2+"</b> <br/><input type='radio' name='answer' value='3'>" +feature.properties.answer_3+"</b> <br/> <input type='radio' name='answer' value='4'>" +feature.properties.answer_4+"</b> <br/> "+"<button class='w3-button w3-section w3-teal w3-ripple' onclick='sendans()''> Submit answer </button>");}
 			else{
 				// magnitude is 1.75 or less
-				return L.marker(latlng,{icon:testMarkerPink}).bindPopup("<b>"+feature.properties.place+"</b>");;
+				return L.marker(latlng,{icon:testMarkerPink}).bindPopup("<b>"+feature.properties.question_text+ " </b> <br/> <input type='radio' name='answer' value='1'>"+feature.properties.answer_1+"</b> <br/> <input type='radio' name='answer' value='2'>" +feature.properties.answer_2+"</b> <br/><input type='radio' name='answer' value='3'>"+feature.properties.answer_3+"</b> <br/><input type='radio' name='answer' value='4'>"+feature.properties.answer_4+"</b> <br/> " + "<button class='w3-button w3-section w3-teal w3-ripple' onclick='sendans("+feature.properties.correct_answer+")'> Submit answer </button>");;
 				}
 		},
 	}).addTo(mymap);
 	mymap.fitBounds(earthquakelayer.getBounds());
+}
+
+
+ function sendans (correct) {
+      // body... 
+    var rates = document.getElementsByName('answer');
+var rate_value;
+for(var i = 0; i < rates.length; i++){
+    if(rates[i].checked){
+        rate_value = rates[i].value;
+    }
+}
+alert("User Selected " +rate_value+"answer is "+correct);
 }
 
